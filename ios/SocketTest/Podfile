@@ -1,0 +1,6 @@
+target 'SocketTest' do
+  use_frameworks!
+  pod 'Socket.IO-Client-Swift', '~> 13.3.0'
+  pod 'SwiftyJSON'
+  pod 'MessageKit'
+end
