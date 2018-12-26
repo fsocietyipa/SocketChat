@@ -72,7 +72,6 @@ class ChatVC: MessagesViewController {
         
         self.socket.on("chat message") {data, ack in
             if let value = data.first as? [[String: Any]] {
-                self.messages.removeAll()
                 for i in value {
                     if let name = i["username"] as? String, let message = i["message"] as? String {
                         var otherMember = Member(name: name, image: UIImage(named: "otherUser"))
@@ -86,7 +85,7 @@ class ChatVC: MessagesViewController {
                         
                         self.messages.append(newMessage)
                         self.messagesCollectionView.reloadData()
-                        self.messagesCollectionView.scrollToBottom(animated: false)
+                        self.messagesCollectionView.scrollToBottom(animated: true)
                     }
                 }
             }

@@ -7,10 +7,9 @@ var cn = {
     database: 'Chat',
     port: 5432,
     host: 'localhost',
-    user: 'postgress',
+    user: 'postgres',
     password: 'pass'
 };
-
 
 var pool = new pg.Pool(cn);
 
@@ -46,18 +45,12 @@ io.on('connection', function(socket){
         if (err) {
           return console.error('Error executing query', err.stack)
         }
-        pool.query('select * from messages', (err, result) => {
-          var totalData = [];
-          if (err) {
-            return console.error('Error executing query', err.stack)
-          }
-          for (var i = 0; i < result.rows.length; i++) {
-            totalData.push({username: result.rows[i].username, message: result.rows[i].message});
-          }
-          io.emit('chat message', totalData);
+        var totalData1 = [];
+
+        totalData1.push({username: msg.username, message: msg.message});
+        io.emit('chat message', totalData1);
         })
       })
-    });
 })
 
 http.listen(process.env.PORT || 80, function(){
